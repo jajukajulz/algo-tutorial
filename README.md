@@ -9,18 +9,19 @@ Examples include:
 
 # Assumptions
 Familiarity with the Algorand network and tools e.g. sandbox (which creates a default unencrypted wallet with 3 funded accounts)
-`./sandbox up`
 
-`./sandbox goal account list`
+- `./sandbox up`
 
-`./sandbox goal wallet list`
+- `./sandbox goal account list`
+
+- `./sandbox goal wallet list`
 
 
 `node.js` and `npm` are installed properly in your development environment
 
-`node -v`
+- `node -v`
 
-`npm -v`
+- `npm -v`
 
 # Steps (if not cloning repo)
 Prepare a new directory and initialise a Node environment.
