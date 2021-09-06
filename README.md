@@ -64,6 +64,9 @@ Run script to send funds from the 1st of the 3 new accounts to the 2nd account. 
 
 `node algo_account_send.js`
 
+For example of sdk included client side in a browser (i.e. simple website with no server),
+ `algo-tutorial/webapp/test.html` in your browser. This assumes that you have algosdk installed via npm because
+ it includes the `../node_modules/algosdk/dist/browser/algosdk.min.js` in the `test.html` file.
 
 ## Reference articles
 - https://github.com/algorand/js-algorand-sdk/tree/develop/examples
