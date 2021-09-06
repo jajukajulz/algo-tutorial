@@ -41,7 +41,12 @@ Paste contents from https://github.com/jajukajulz/algo-tutorial/blob/master/algo
 # Steps (if cloning repo)
 
 Clone repo
+
 `git clone https://github.com/jajukajulz/algo-tutorial.git`
+
+Change directory and install node dependencies
+
+`cd algo-tutorial && npm install`
 
 Run script to create 3 new accounts via (i.e. via SDK). Once complete, make a note of the 3 account mnemonics and save somewhere safe.
 
