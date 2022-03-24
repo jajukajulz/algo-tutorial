@@ -75,6 +75,8 @@ Change directory and install node dependencies
 
 `$ cd algo-tutorial && npm install`
 
+Setup`.env` file for your environment variables (as noted in previous section)
+
 Run script to create 3 new accounts via (i.e. via SDK). Once complete, make a note of the 3 account mnemonics and save somewhere safe.
 
 `$ node algo_account_create.js`
