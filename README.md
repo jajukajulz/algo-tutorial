@@ -1,74 +1,102 @@
 # Alogrand Tutorials
+
 Repo with examples illustrating the use of the Algorand JavaScript SDK (https://github.com/algorand/js-algorand-sdk).
 
 Examples include:
+
 - connecting to a network
 - creating accounts
-- sending transactions 
+- sending transactions
 - querying balances
 
 # Assumptions
+
 Familiarity with the Algorand network and tools e.g. sandbox (which creates a default unencrypted wallet with 3 funded accounts)
 
-- `./sandbox up`
+- `$ ./sandbox up`
 
-- `./sandbox goal account list`
+- `$ ./sandbox goal account list`
 
-- `./sandbox goal wallet list`
-
+- `$ ./sandbox goal wallet list`
 
 `node.js` and `npm` are installed properly in your development environment
 
-- `node -v`
+- `$ node -v`
 
-- `npm -v`
+- `$ npm -v`
 
 # Steps (if not cloning repo)
+
 Prepare a new directory and initialise a Node environment.
 
-`npm init`
+`$ npm init`
 
 Install Algorand JavaScript SDK (this updates package.json)
 
-`npm install algosdk -s`
+`$ npm install algosdk -s`
 
-Create a new file
+Create a `.env` file for your environment variables
 
-`touch algo_account_create.js`
+`$ touch .env`
 
-Paste contents from https://github.com/jajukajulz/algo-tutorial/blob/master/algo_account_create.js
+Populate your `.env` file with the following contents (make a note to update the variables named PLEASE_REPLACE_ME)
+
+```
+NODE_ENV=development
+PORT=3000
+BLOCKCHAINENV=TESTNET
+DEV_ALGOD_API_KEY=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+DEV_ALGOD_SERVER=http://localhost
+DEV_ALGOD_PORT=4001
+DEV_ALGOINDEXER_PORT=8980
+TESTNET_ALGOD_API_KEY=PLEASE_REPLACE_ME
+TESTNET_ALGOD_SERVER=https://testnet-algorand.api.purestake.io/ps2
+TESTNET_ALGOINDEXER_SERVER=https://testnet-algorand.api.purestake.io/idx2
+TESTNET_ALGOD_PORT=
+ACCOUNT1_ADDRESS=PLEASE_REPLACE_ME
+ACCOUNT1_MNEMONIC=PLEASE_REPLACE_ME
+ACCOUNT2_ADDRESS=PLEASE_REPLACE_ME
+ACCOUNT2_MNEMONIC=PLEASE_REPLACE_ME
+ACCOUNT3_ADDRESS=PLEASE_REPLACE_ME
+ACCOUNT3_MNEMONIC=PLEASE_REPLACE_ME
+```
+
+Create a new file, and then copy and paste contents from https://github.com/jajukajulz/algo-tutorial/blob/master/algo_account_create.js
+
+`$ touch algo_account_create.js`
 
 # Steps (if cloning repo)
 
 Clone repo
 
-`git clone https://github.com/jajukajulz/algo-tutorial.git`
+`$ git clone https://github.com/jajukajulz/algo-tutorial.git`
 
 Change directory and install node dependencies
 
-`cd algo-tutorial && npm install`
+`$ cd algo-tutorial && npm install`
 
 Run script to create 3 new accounts via (i.e. via SDK). Once complete, make a note of the 3 account mnemonics and save somewhere safe.
 
-`node algo_account_create.js`
+`$ node algo_account_create.js`
 
 Fund the 1st of the 3 newly created account using one of the default funded sandbox accounts
 
-`./sandbox goal clerk send -a 12345678 -f <REPLACE_SOURCE_ADDRESS_FROM_SANDBOX> -t <REPLACE_DESTINATION_ADDRESS_CREATED_BY_SDK>`
+`$ ./sandbox goal clerk send -a 12345678 -f <REPLACE_SOURCE_ADDRESS_FROM_SANDBOX> -t <REPLACE_DESTINATION_ADDRESS_CREATED_BY_SDK>`
 
 Run script to check balance of the 3 new accounts (i.e. via SDK). Before running, 1st update the 3 account mnemonics manually.
 
-`node algo_account_balance.js`
+`$ node algo_account_balance.js`
 
 Run script to send funds from the 1st of the 3 new accounts to the 2nd account. Before running, 1st update the 3 account mnemonics manually.
 
-`node algo_account_send.js`
+`$ node algo_account_send.js`
 
 For example of sdk included client side in a browser (i.e. simple website with no server),
- `algo-tutorial/webapp/test.html` in your browser. This assumes that you have algosdk installed via npm because
- it includes the `../node_modules/algosdk/dist/browser/algosdk.min.js` in the `test.html` file.
+`algo-tutorial/webapp/test.html` in your browser. This assumes that you have algosdk installed via npm because
+it includes the `../node_modules/algosdk/dist/browser/algosdk.min.js` in the `test.html` file.
 
 ## Reference articles
+
 - https://github.com/algorand/js-algorand-sdk/tree/develop/examples
 - https://developer.algorand.org/tutorials/create-account-testnet-javascript/
 - https://developer.algorand.org/tutorials/asa-javascript/
