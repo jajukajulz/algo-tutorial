@@ -97,6 +97,28 @@ For example of sdk included client side in a browser (i.e. simple website with n
 `algo-tutorial/webapp/test.html` in your browser. This assumes that you have algosdk installed via npm because
 it includes the `../node_modules/algosdk/dist/browser/algosdk.min.js` in the `test.html` file.
 
+## PureStake
+
+The PureStake API service makes it easy to quickly get up-and-running on the Algorand network. The service builds upon PureStake's existing infrastructure platform to provide developers with easy-to-use access to native Algorand REST APIs. You will need to create an account with PureStake in order to get an API key that allows you to use their service to access the Algorand Network (TestNet or MainNet). See https://www.purestake.com/technology/algorand-api/ and https://purestake.github.io/algosigner-dapp-example/
+
+```
+const algodServer = 'https://testnet-algorand.api.purestake.io/ps2'
+const indexerServer = 'https://testnet-algorand.api.purestake.io/idx2'
+const token = { 'X-API-Key': 'YOUR API KEY HERE' }
+const port = '';
+
+algodClient = new algosdk.Algodv2(token, algodServer, port);
+indexerClient = new algosdk.Indexer(token, indexerServer, port);
+
+algodClient.healthCheck().do()
+.then(d => {
+  ...
+})
+.catch(e => {
+  console.error(e);
+});
+```
+
 ## Reference articles
 
 - https://github.com/algorand/js-algorand-sdk/tree/develop/examples
