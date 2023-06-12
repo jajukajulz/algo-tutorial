@@ -1,6 +1,6 @@
 # Description - Interact with Algorand blockchain using the Python SDK py-algorand-sdk
 # Before running, make sure you have installed py-algorand-sdk i.e. pip3 install py-algorand-sdk
-# Usage - $ python 2_algo_multisig_rekey.py
+# Usage - $ python 3_algo_multisig_rekey.py
 
 import json, time
 
@@ -16,7 +16,7 @@ algod_token = ""
 
 algod_client = algod.AlgodClient(algod_token, algod_address)
 
-# generate 2 random accounts, each with a fresh private key and associated account address
+# generate 3 random accounts, each with a fresh private key and associated account address
 account_1_private_key, account_1_address = account.generate_account()
 account_2_private_key, account_2_address = account.generate_account()
 account_3_private_key, account_3_address = account.generate_account()
