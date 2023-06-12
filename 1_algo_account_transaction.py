@@ -33,6 +33,7 @@ algod_client = algod.AlgodClient(algod_token, algod_address)
 account_info: Dict[str, Any] = algod_client.account_info(sender_addr)
 print(f"Account balance: {account_info.get('amount')} microAlgos")
 
+# example: TRANSACTION_PAYMENT_CREATE
 # grab suggested params from algod using client
 # includes things like suggested fee and first/last valid rounds
 params = algod_client.suggested_params()
@@ -43,10 +44,14 @@ unsigned_txn = transaction.PaymentTxn(
     amt=1000000,
     note=b"Hello World",
 )
+# example: TRANSACTION_PAYMENT_CREATE
 
+# example: TRANSACTION_PAYMENT_SIGN
 # sign the transaction
 signed_txn = unsigned_txn.sign(sender_pk)
+# example: TRANSACTION_PAYMENT_SIGN
 
+# example: TRANSACTION_PAYMENT_SUBMIT
 # submit the transaction and get back a transaction id
 txid = algod_client.send_transaction(signed_txn)
 print("Successfully submitted transaction with txID: {}".format(txid))
@@ -56,3 +61,4 @@ txn_result = transaction.wait_for_confirmation(algod_client, txid, 4)
 
 print(f"Transaction information: {json.dumps(txn_result, indent=4)}")
 print(f"Decoded note: {b64decode(txn_result['txn']['txn']['note'])}")
+# example: TRANSACTION_PAYMENT_SUBMIT
