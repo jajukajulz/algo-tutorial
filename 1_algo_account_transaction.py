@@ -23,6 +23,9 @@ sender_addr = account.address_from_private_key(sender_pk)
 print(f"Address: {sender_addr}")
 # example: ACCOUNT_RECOVER_MNEMONIC
 
+user_input = input(
+    "Now go to Algorand testnet dispenser (https://bank.testnet.algorand.network) and fund account 1 then return and press enter. "
+)
 
 # Create a new algod client, configured to connect to your local sandbox or a node e.g. https://algonode.io/
 algod_address = "https://testnet-api.algonode.cloud"
