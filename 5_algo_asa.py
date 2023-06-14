@@ -1,6 +1,6 @@
 # Description - Interact with Algorand blockchain using the Python SDK py-algorand-sdk
 # Before running, make sure you have installed py-algorand-sdk i.e. pip3 install py-algorand-sdk
-# Usage - $ python 4_algo_asa.py
+# Usage - $ python 5_algo_asa.py
 
 # from utils import get_accounts, get_algod_client
 import json

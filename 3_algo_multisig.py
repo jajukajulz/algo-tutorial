@@ -1,6 +1,6 @@
 # Description - Interact with Algorand blockchain using the Python SDK py-algorand-sdk
 # Before running, make sure you have installed py-algorand-sdk i.e. pip3 install py-algorand-sdk
-# Usage - $ python 3_algo_multisig_rekey.py
+# Usage - $ python 3_algo_multisig.py
 
 import json, time
 
@@ -72,39 +72,3 @@ txid = algod_client.send_transaction(msig_txn)
 result = transaction.wait_for_confirmation(algod_client, txid, 4)
 print(f"Payment made from msig account confirmed in round {result['confirmed-round']}")
 # example: MULTISIG_SIGN
-
-
-# example: ACCOUNT_REKEY
-# Any kind of transaction can contain a rekey
-rekey_txn = transaction.PaymentTxn(
-    account_1_address, sp, account_1_address, 0, rekey_to=account_2_address
-)
-signed_rekey = rekey_txn.sign(account_1_private_key)
-txid = algod_client.send_transaction(signed_rekey)
-result = transaction.wait_for_confirmation(algod_client, txid, 4)
-print(f"rekey transaction confirmed in round {result['confirmed-round']}")
-
-# Now we should get an error if we try to submit a transaction
-# signed with account_1s private key
-expect_err_txn = transaction.PaymentTxn(account_1_address, sp, account_1_address, 0)
-signed_expect_err_txn = expect_err_txn.sign(account_1_private_key)
-try:
-    txid = algod_client.send_transaction(signed_expect_err_txn)
-except Exception as e:
-    print("Expected error: ", e)
-
-# But its fine if we sign it with the account we rekeyed to
-signed_expect_err_txn = expect_err_txn.sign(account_2_private_key)
-txid = algod_client.send_transaction(signed_expect_err_txn)
-result = transaction.wait_for_confirmation(algod_client, txid, 4)
-print(f"transaction confirmed in round {result['confirmed-round']}")
-
-# rekey account1 back to itself so we can actually use it later
-rekey_txn = transaction.PaymentTxn(
-    account_1_address, sp, account_1_address, 0, rekey_to=account_1_address
-)
-signed_rekey = rekey_txn.sign(account_2_private_key)
-txid = algod_client.send_transaction(signed_rekey)
-result = transaction.wait_for_confirmation(algod_client, txid, 4)
-print(f"rekey transaction confirmed in round {result['confirmed-round']}")
-# example: ACCOUNT_REKEY
