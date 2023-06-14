@@ -1,6 +1,6 @@
 # Description - Interact with Algorand blockchain using the Python SDK py-algorand-sdk
 # Before running, make sure you have installed py-algorand-sdk i.e. pip3 install py-algorand-sdk
-# Usage - $ python 6_algo_query_tx.py
+# Usage - $ python 6_algo_indexer.py
 
 from algosdk.v2client import indexer
 import json
