@@ -13,10 +13,10 @@ from algosdk import transaction
 from algosdk.v2client import algod
 
 
-MY_PERA_ADDRESS = "GRZANBMEE3JDUGNIMR5ZGLRHJ3N3OQFJAAHNFLQZI4GJMBZYEYWKNTT3GQ"
+MY_PERA_ADDRESS = "REPLACE_ME"
 
 # example: ACCOUNT_RECOVER_MNEMONIC
-sender_mnemonic = "cost piano sample enough south bar diet garden nasty mystery mesh sadness convince bacon best patch surround protect drum actress entire vacuum begin abandon hair"
+sender_mnemonic = "REPLACE_ME"
 sender_pk = mnemonic.to_private_key(sender_mnemonic)
 print(f"Base64 encoded private key: {sender_pk}")
 sender_addr = account.address_from_private_key(sender_pk)
