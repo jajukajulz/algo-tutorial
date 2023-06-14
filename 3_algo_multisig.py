@@ -7,7 +7,7 @@ import json, time
 from typing import Dict, Any
 from base64 import b64decode
 
-from algosdk import account, transaction
+from algosdk import account, transaction, mnemonic
 from algosdk.v2client import algod
 
 # setup algod client
@@ -16,10 +16,31 @@ algod_token = ""
 
 algod_client = algod.AlgodClient(algod_token, algod_address)
 
-# generate 3 random accounts, each with a fresh private key and associated account address
-account_1_private_key, account_1_address = account.generate_account()
-account_2_private_key, account_2_address = account.generate_account()
-account_3_private_key, account_3_address = account.generate_account()
+# example: ACCOUNT_RECOVER_MNEMONIC
+account_1_mnemonic = "REPLACE_ME"
+account_1_private_key = mnemonic.to_private_key(account_1_mnemonic)
+print(f"Base64 encoded private key: {account_1_private_key}")
+account_1_address = account.address_from_private_key(account_1_private_key)
+
+print(f"Account 1 Base64 encoded private key: {account_1_private_key}")
+print(f"Account 1 Address: {account_1_address}")
+
+account_2_mnemonic = "REPLACE_ME"
+account_2_private_key = mnemonic.to_private_key(account_2_mnemonic)
+print(f"Base64 encoded private key: {account_2_private_key}")
+account_2_address = account.address_from_private_key(account_2_private_key)
+
+print(f"Account 2 Base64 encoded private key: {account_2_private_key}")
+print(f"Account 2 Address: {account_2_address}")
+
+account_3_mnemonic = "REPLACE_ME"
+account_3_private_key = mnemonic.to_private_key(account_3_mnemonic)
+print(f"Base64 encoded private key: {account_3_private_key}")
+account_3_address = account.address_from_private_key(account_3_private_key)
+
+print(f"Account 3 Base64 encoded private key: {account_3_private_key}")
+print(f"Account 3 Address: {account_3_address}")
+# example: ACCOUNT_RECOVER_MNEMONIC
 
 # time.sleep(int(10))
 
@@ -50,7 +71,7 @@ print("Multisig Address: ", msig.address())
 # example: MULTISIG_CREATE
 
 sp = algod_client.suggested_params()
-ptxn = transaction.PaymentTxn(account_1_address, sp, msig.address(), int(1e5)).sign(
+ptxn = transaction.PaymentTxn(account_1_address, sp, msig.address(), int(4e6)).sign(
     account_1_private_key
 )
 txid = algod_client.send_transaction(ptxn)
@@ -62,8 +83,8 @@ msig_pay = transaction.PaymentTxn(
     msig.address(),
     sp,
     account_1_address,
-    0,
-    close_remainder_to=account_1_address,
+    2,
+    close_remainder_to=account_3_address,
 )
 msig_txn = transaction.MultisigTransaction(msig_pay, msig)
 msig_txn.sign(account_2_private_key)
