@@ -44,15 +44,6 @@ print(f"Account 3 Address: {account_3_address}")
 
 # time.sleep(int(10))
 
-print(f"Account 1 Base64 encoded private key: {account_1_private_key}")
-print(f"Account 1 Address: {account_1_address}")
-
-print(f"Account 2 Base64 encoded private key: {account_2_private_key}")
-print(f"Account 2 Address: {account_2_address}")
-
-print(f"Account 3 Base64 encoded private key: {account_3_private_key}")
-print(f"Account 3 Address: {account_3_address}")
-
 user_input = input(
     "Now go to Algorand testnet dispenser (https://bank.testnet.algorand.network) and fund account 1 then return and press enter. "
 )
