@@ -34,7 +34,6 @@ var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
 var isValid = algosdk.isValidAddress(recoveredAccount1.addr);
 console.log('Account recovered: ' + isValid);
 var account1 = recoveredAccount1.addr;
-1;
 console.log('Account 1 = ' + account1);
 
 var recoveredAccount2 = algosdk.mnemonicToSecretKey(account2_mnemonic);
