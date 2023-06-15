@@ -2,7 +2,6 @@
 # Before running, make sure you have installed py-algorand-sdk i.e. pip3 install py-algorand-sdk
 # Usage - $ python 2_algo_atomic_tx.py
 
-# from utils import get_accounts, get_algod_client
 import json
 
 from typing import Dict, Any
@@ -11,8 +10,6 @@ from base64 import b64decode
 from algosdk import account, mnemonic
 from algosdk import transaction
 from algosdk.v2client import algod
-
-MY_PERA_ADDRESS = "REPLACE_ME"
 
 # generate 3 random accounts, each with a fresh private key and associated account address
 account_1_private_key, account_1_address = account.generate_account()
