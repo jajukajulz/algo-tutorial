@@ -33,16 +33,23 @@ if __name__ == "__main__":
     import os
     import json
 
-    path = os.path.dirname(os.path.abspath(__file__))
-    approval, clear, contract = router.compile_program(version=8)
+    try:
+        path = os.path.dirname(os.path.abspath(__file__))
+        artifacts_path = os.path.join(path, 'artifacts')
+        os.mkdir(artifacts_path)
 
-    # Dump out the contract as json that can be read in by any of the SDKs
-    with open(os.path.join(path, "artifacts/contract.json"), "w") as f:
-        f.write(json.dumps(contract.dictify(), indent=2))
+        approval, clear, contract = router.compile_program(version=8)
 
-    # Write out the approval and clear programs
-    with open(os.path.join(path, "artifacts/approval.teal"), "w") as f:
-        f.write(approval)
+        # Dump out the contract as json that can be read in by any of the SDKs
+        with open(os.path.join(path, "artifacts/contract.json"), "w") as f:
+            f.write(json.dumps(contract.dictify(), indent=2))
 
-    with open(os.path.join(path, "artifacts/clear.teal"), "w") as f:
-        f.write(clear)
+        # Write out the approval and clear programs
+        with open(os.path.join(path, "artifacts/approval.teal"), "w") as f:
+            f.write(approval)
+
+        with open(os.path.join(path, "artifacts/clear.teal"), "w") as f:
+            f.write(clear)
+
+    except Exception as e:
+        print(e)
