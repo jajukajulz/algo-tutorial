@@ -49,30 +49,36 @@ algod_address = "https://testnet-api.algonode.cloud"
 algod_token = ""
 
 algod_client = algod.AlgodClient(algod_token, algod_address)
-params = algod_client.suggested_params()
+
+# grab suggested params from algod using client includes things like suggested fee and first/last valid rounds
+suggested_params = algod_client.suggested_params()
 
 # example: CREATE ASSET
-# grab suggested params from algod using client
-# includes things like suggested fee and first/last valid rounds
+# Account 1 creates an asset called Ariary Digital (i.e. Madagascar) and sets Account 2 as the manager, reserve, freeze, and clawback address.
 
-# Account 1 creates an asset called Ariary Digital (i.e. Madagascar) and
-# sets Account 2 as the manager, reserve, freeze, and clawback address.
+# manager - The manager account is the only account that can authorize transactions to re-configure or destroy an asset.
+
+# reserve - non-minted assets will reside in this account instead of the default creator account. Assets transferred from this account are "minted" units of the asset.
+
+# freeze - The freeze account is allowed to freeze or unfreeze the asset holdings for a specific account. When an account is frozen it cannot send or receive the frozen asset. In traditional finance, freezing assets may be performed to restrict liquidation of company stock, to investigate suspected criminal activity or to deny-list certain accounts. If the DefaultFrozen state is set to True, you can use the unfreeze action to authorize certain accounts to trade the asset (such as after passing KYC/AML checks).
+
+# clawback - i.e. revoking an asset for an account removes a specific number of the asset from the revoke target account. The clawback address represents an account that is allowed to transfer assets from and to any asset holder (assuming they have opted-in). Use this if you need the option to revoke assets from an account (like if they breach certain contractual obligations tied to holding the asset). In traditional finance, this sort of transaction is referred to as a clawback.
+
 # Asset Creation transaction
 unsigned_txn = transaction.AssetConfigTxn(
     sender=account_1_address,
-    sp=params,
+    sp=suggested_params,
     total=1000,
     default_frozen=False,
     unit_name="ArD",
     asset_name="Ariary Digital",
     manager=account_2_address,
-    reserve=account_2_address,
-    freeze=account_2_address,
-    clawback=account_2_address,
+    reserve=account_2_address,  # non-minted assets will reside in this account instead of the default creator account. Assets transferred from this account are "minted" units of the asset.
+    freeze=account_2_address,  # account authorised to sign a transaction to freeze an asset
+    clawback=account_2_address,  # account authorised to sign a clawback transaction
     url="https://path/to/my/asset/details",
     decimals=0,
 )
-
 # example: ASSET_CREATE
 
 # example: ASSET_CREATE_SIGN
@@ -81,9 +87,7 @@ signed_txn = unsigned_txn.sign(account_1_private_key)
 # example: ASSET_CREATE_SIGN
 
 # example: ASSET_CREATE_SUBMIT
-# submit the transaction and get back a transaction id
-
-# Send the transaction to the network and retrieve the txid.
+# submit the transaction to the network and get back a transaction id
 try:
     txid = algod_client.send_transaction(signed_txn)
     print("Signed transaction with txID: {}".format(txid))
@@ -98,3 +102,62 @@ try:
     print("Transaction information: {}".format(json.dumps(confirmed_txn, indent=4)))
 except Exception as err:
     print(err)
+# example: ASSET_CREATE_SUBMIT
+
+# example: RETRIEVE_ASSET_INFORMATION
+# Retrieve the asset info of the newly created asset
+asset_info = algod_client.asset_info(asset_id)
+asset_params: Dict[str, Any] = asset_info["params"]
+print(f"Asset Name: {asset_params['name']}")
+print(f"Asset params: {list(asset_params.keys())}")
+# example: RETRIEVE_ASSET_INFORMATION
+
+# example: OPT-IN_TO_ASSET
+user_input = input("Now Opt-in to the newly created asset and press enter. ")
+# Create opt-in transaction
+# asset transfer from me to me for asset id we want to opt-in to with amt==0
+suggested_params = algod_client.suggested_params()
+optin_txn = transaction.AssetOptInTxn(
+    sender=account_3_address, sp=suggested_params, index=asset_id
+)
+signed_optin_txn = optin_txn.sign(account_3_private_key)
+txid = algod_client.send_transaction(signed_optin_txn)
+print(f"Sent opt in transaction with txid: {txid}")
+
+# Wait for the transaction to be confirmed
+results = transaction.wait_for_confirmation(algod_client, txid, 4)
+print(f"Result confirmed in round: {results['confirmed-round']}")
+# example: OPT-IN_TO_ASSET
+
+# example: TRANSFER_ASSET
+suggested_params = algod_client.suggested_params()
+# Create transfer transaction
+xfer_txn = transaction.AssetTransferTxn(
+    sender=account_2_address,  # this should be from the reserve account
+    sp=suggested_params,
+    receiver=account_3_address,
+    amt=1,
+    index=asset_id,
+)
+signed_xfer_txn = xfer_txn.sign(account_2_private_key)
+txid = algod_client.send_transaction(signed_xfer_txn)
+print(f"Sent transfer transaction with txid: {txid}")
+
+results = transaction.wait_for_confirmation(algod_client, txid, 4)
+print(f"Result confirmed in round: {results['confirmed-round']}")
+# example: TRANSFER_ASSET
+
+# example: FREEZE_ASSET
+# example: FREEZE_ASSET
+
+# example: CLAWBACK_ASSET
+# example: CLAWBACK_ASSET
+
+# example: OPT_OUT_ASSET
+# example: OPT_OUT_ASSET
+
+# example: DESTROY_ASSET
+# example: DESTROY_ASSET
+
+# example: MODIFY_ASSET
+# example: MODIFY_ASSET
