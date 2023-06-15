@@ -1,6 +1,7 @@
 # Alogrand Tutorials
 
-Repo with examples illustrating the use of the Algorand JavaScript SDK (https://github.com/algorand/js-algorand-sdk).
+Repo with examples illustrating the use of the Algorand JavaScript SDK (https://github.com/algorand/js-algorand-sdk), 
+Python SDK (https://github.com/algorand/py-algorand-sdk) and PyTeal Smart Contracts.
 
 Examples include:
 
@@ -8,6 +9,12 @@ Examples include:
 - creating accounts
 - sending transactions
 - querying balances
+- multisig transactions
+- creating Algorand standard assets (ASA) i.e. tokens
+- rekeying an account
+- atomic transfers
+- pyteal smart contract
+
 
 # Assumptions
 
